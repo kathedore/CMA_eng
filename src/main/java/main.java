@@ -22,12 +22,13 @@ import java.net.MalformedURLException;
 /*
 public class main extends PdfPageEventHelper {
 
+    
     //declaring resources
     public static final String FONT = "/Users/ketikakhniauri/IdeaProjects/CMA_eng/src/ttf/sylfaen.ttf";
     public static final String dest = "result/addingTable.pdf";
     public static final String image = "/Users/ketikakhniauri/IdeaProjects/CMA_eng/src/ttf/logo.jpg";
     public static final String stamp = "/Users/ketikakhniauri/IdeaProjects/CMA_eng/src/ttf/signature.png";
-    static Image img;
+     static Image img;
 
     {
         try {
@@ -47,91 +48,6 @@ public class main extends PdfPageEventHelper {
         }
     }
 
-    private PdfTemplate t;
-    private Image total;
-
-    public void onOpenDocument(PdfWriter writer, Document document) {
-        //t = writer.getDirectContent().createTemplate(30, 16);
-        //try {
-            //total = Image.getInstance(t);
-            //total.setRole(PdfName.ARTIFACT);
-        //} catch (DocumentException de) {
-           // throw new ExceptionConverter(de);
-       // }
-    }
-
-    //@Override
-    public void onEndPage(PdfWriter writer, Document document) {
-        addHeader(writer);
-        addFooter(writer);
-    }
-
-    private void addHeader(PdfWriter writer){
-        PdfPTable header = new PdfPTable(2);
-        try {
-            // set defaults
-            header.setWidths(new int[]{2, 24});
-            header.setTotalWidth(527);
-            header.setLockedWidth(true);
-            header.getDefaultCell().setFixedHeight(40);
-            //header.getDefaultCell().setBorder(Rectangle.BOTTOM);
-            header.getDefaultCell().setBorderColor(BaseColor.LIGHT_GRAY);
-
-            // add image
-
-            header.addCell(String.valueOf(stmp.scale(0.08F, 0.08F).setHorizontalAlignment(HorizontalAlignment.CENTER)));
-
-            // write content
-           // header.writeSelectedRows(0, -1, 34, 803, writer.getDirectContent());
-        } catch(DocumentException de) {
-            throw new ExceptionConverter(de);
-        } catch (IOException e) {
-            throw new ExceptionConverter(e);
-        }
-    }
-
-    private void addFooter(PdfWriter writer){
-        PdfPTable footer = new PdfPTable(3);
-        try {
-            // set defaults
-            footer.setWidths(new int[]{24, 2, 1});
-            footer.setTotalWidth(527);
-            footer.setLockedWidth(true);
-            footer.getDefaultCell().setFixedHeight(40);
-            //footer.getDefaultCell().setBorder(Rectangle.TOP);
-            footer.getDefaultCell().setBorderColor(BaseColor.LIGHT_GRAY);
-
-            // add copyright
-            footer.addCell(new Phrase("\u00A9 Memorynotfound.com", new Font(Font.FontFamily.HELVETICA, 12, Font.BOLD)));
-
-            // add current page count
-            footer.getDefaultCell().setHorizontalAlignment(Element.ALIGN_RIGHT);
-           // footer.addCell(new Phrase(String.format("Page %d of", writer.getPageNumber()), new Font(Font.FontFamily.HELVETICA, 8)));
-
-            // add placeholder for total page count
-            //PdfPCell totalPageCount = new PdfPCell(total);
-            //totalPageCount.setBorder(Rectangle.TOP);
-            //totalPageCount.setBorderColor(BaseColor.LIGHT_GRAY);
-            //footer.addCell(totalPageCount);
-
-            // write page
-            //PdfContentByte canvas = writer.getDirectContent();
-            //canvas.beginMarkedContentSequence(PdfName.ARTIFACT);
-            //footer.writeSelectedRows(0, -1, 34, 50, canvas);
-            //canvas.endMarkedContentSequence();
-        } catch(DocumentException de) {
-            throw new ExceptionConverter(de);
-        }
-    }
-
-    public void onCloseDocument(PdfWriter writer, Document document) {
-        //int totalLength = String.valueOf(writer.getPageNumber()).length();
-        //int totalWidth = totalLength * 5;
-       // ColumnText.showTextAligned(t, Element.ALIGN_RIGHT,
-        //        new Phrase(String.valueOf(writer.getPageNumber()), new Font(Font.FontFamily.HELVETICA, 8)),
-         //       totalWidth, 6, 0);
-    }
-
 
 
     public static void main(String[] args) throws Exception, NullPointerException {
@@ -140,23 +56,8 @@ public class main extends PdfPageEventHelper {
         PdfWriter writer = new PdfWriter(dest);
         PdfDocument pdf = new PdfDocument(writer);
         Document doc = new Document(pdf, PageSize.A4);
+        boolean dgg=true;
 
-
-        // add header and footer
-        main event = new main();
-        //pdf.addEventHandler(event);
-
-        Paragraph page_header = new Paragraph("Copy")
-                .setFont(PdfFontFactory.createFont(StandardFonts.HELVETICA))
-                .setFontSize(14)
-                .setFontColor(ColorConstants.RED);
-
-        for (int i = 1; i <= pdf.getNumberOfPages(); i++) {
-            Rectangle pageSize = pdf.getPage(i).getPageSize();
-            float x = pageSize.getWidth() / 2;
-            float y = pageSize.getTop() - 20;
-            doc.showTextAligned(page_header, x, y, i, TextAlignment.LEFT, VerticalAlignment.BOTTOM, 0);
-        }
 
         //data for body table
         String operation[] = new String[20];
@@ -287,9 +188,18 @@ public class main extends PdfPageEventHelper {
         //header.addCell(img.scale(0.07F, 0.07F).setHorizontalAlignment(HorizontalAlignment.CENTER));
         //header.addCell(new Paragraph("Invoice No :19809").setTextAlignment(TextAlignment.CENTER).setBold());
         //header.addCell(new Paragraph("თარიღი: 09/13/21 ").setTextAlignment(TextAlignment.CENTER).setBold());
-        headerstrings.addCell("CMA - CGM S.A.\n" +
-                "MARSEILLE / FRANCE");
-        headerstrings.addCell("5/31/21 12:00 AM");
+        headerstrings.addCell("Custumer");
+        headerstrings.addCell("LAWFORWARD");
+        headerstrings.addCell("Tel/Tax");
+        headerstrings.addCell("");
+        headerstrings.addCell("Invoice Date: ");
+        headerstrings.addCell("5/29");
+        headerstrings.addCell("Received Date: ");
+        headerstrings.addCell("5/29");
+        headerstrings.addCell("Departed Date: ");
+        headerstrings.addCell("5/29");
+        headerstrings.addCell("Shipment");
+        headerstrings.addCell("Transit to Yerevan");
 
 
 
@@ -320,6 +230,15 @@ public class main extends PdfPageEventHelper {
             body.addCell(unit[i]);
             body.addCell(sum[i]);
             body.addCell(total[i]);
+        }
+
+        if(dgg ==true){
+            Cell incel = new Cell(1, 7);
+            Paragraph kk = new Paragraph("VAT (18%)");
+            incel.add(kk.setTextAlignment(TextAlignment.RIGHT));
+            body.addCell(incel);
+            body.addCell(new Paragraph("631.20").setBold());
+
         }
 
         Cell incel = new Cell(1, 6);
@@ -353,7 +272,7 @@ public class main extends PdfPageEventHelper {
         //info.addCell(stmp.scale(0.08F, 0.08F).setHorizontalAlignment(HorizontalAlignment.CENTER));
 
         //adding tables to the doc
-        doc.add(img.scale(0.08F, 0.08F));
+        //doc.add(img.scale(0.08F, 0.08F));
         doc.add(header);
         headerstrings.setMarginTop(40f);
         doc.add(headerstrings);
@@ -376,8 +295,12 @@ public class main extends PdfPageEventHelper {
         System.out.println("Table created successfully..");
 
     }
-}
+    }
 
  */
+
+
+
+
 
 
